@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0e0e11">
+  <meta name="application-name" content="ExecuFlow">
+  <meta name="description" content="ExecuFlow is an executive command center: strategic portfolio, team delegation, workload allocation and global engagements in one offline Windows app.">
+  <title>ExecuFlow — Executive Command Center</title>
+
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="stylesheet" href="css/app.css">
+
+  <!-- Apply the saved theme before first paint to avoid a flash -->
+  <script>
+    (function () {
+      var theme = 'system';
+      try { var s = JSON.parse(localStorage.getItem('execuflow.v1') || '{}'); theme = (s.settings && s.settings.theme) || 'system'; } catch (e) {}
+      if (theme === 'system') theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+      var meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute('content', theme === 'dark' ? '#0e0e11' : '#f3f3f3');
+    })();
+  </script>
+</head>
+<body>
+  <!-- Lucide icons v1.52.0 (ISC license, https://lucide.dev) bundled as an inline sprite -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+    <symbol id="i-briefcase" viewBox="0 0 24 24"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /> <rect width="20" height="14" x="2" y="6" rx="2" /></symbol>
+    <symbol id="i-layout-dashboard" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1" /> <rect width="7" height="5" x="14" y="3" rx="1" /> <rect width="7" height="9" x="14" y="12" rx="1" /> <rect width="7" height="5" x="3" y="16" rx="1" /></symbol>
+    <symbol id="i-chart-pie" viewBox="0 0 24 24"><path d="M21 12c.552 0 1.005-.449.95-.998a10 10 0 0 0-8.953-8.951c-.55-.055-.998.398-.998.95v8a1 1 0 0 0 1 1z" /> <path d="M21.21 15.89A10 10 0 1 1 8 2.83" /></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /></symbol>
+    <symbol id="i-chart-column" viewBox="0 0 24 24"><path d="M3 3v16a2 2 0 0 0 2 2h16" /> <path d="M18 17V9" /> <path d="M13 17V5" /> <path d="M8 17v-3" /></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /> <path d="M2 12h20" /></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 5h16" /> <path d="M4 12h16" /> <path d="M4 19h16" /></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M10.268 21a2 2 0 0 0 3.464 0" /> <path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326" /></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14" /> <path d="M12 5v14" /></symbol>
+    <symbol id="i-user-plus" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <circle cx="9" cy="7" r="4" /> <line x1="19" x2="19" y1="8" y2="14" /> <line x1="22" x2="16" y1="11" y2="11" /></symbol>
+    <symbol id="i-calendar-plus" viewBox="0 0 24 24"><path d="M16 18h6" /> <path d="M16 2v3" /> <path d="M19 15v6" /> <path d="M21 11.5V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h8.3" /> <path d="M3 9h18" /> <path d="M8 2v3" /></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /></symbol>
+    <symbol id="i-calendar-days" viewBox="0 0 24 24"><path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /> <path d="M8 13h.01" /> <path d="M12 13h.01" /> <path d="M16 13h.01" /> <path d="M8 17h.01" /> <path d="M12 17h.01" /> <path d="M16 17h.01" /></symbol>
+    <symbol id="i-trending-up" viewBox="0 0 24 24"><path d="M16 7h6v6" /> <path d="m22 7-8.5 8.5-5-5L2 17" /></symbol>
+    <symbol id="i-circle-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <line x1="12" x2="12" y1="8" y2="12" /> <line x1="12" x2="12.01" y1="16" y2="16" /></symbol>
+    <symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <path d="m16 9-5.5 5.5L8 12" /></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" /></symbol>
+    <symbol id="i-trash-2" viewBox="0 0 24 24"><path d="M10 11v6" /> <path d="M14 11v6" /> <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" /> <path d="M3 6h18" /> <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></symbol>
+    <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /></symbol>
+    <symbol id="i-map-pin" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <path d="M12 6v6l4 2" /></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <path d="M12 16v-4" /> <path d="M12 8h.01" /></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 3v12" /> <path d="m17 8-5-5-5 5" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" /> <circle cx="12" cy="12" r="3" /></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /> <path d="M12 2v2" /> <path d="M12 20v2" /> <path d="m4.93 4.93 1.41 1.41" /> <path d="m17.66 17.66 1.41 1.41" /> <path d="M2 12h2" /> <path d="M20 12h2" /> <path d="m6.34 17.66-1.41 1.41" /> <path d="m19.07 4.93-1.41 1.41" /></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" /></symbol>
+    <symbol id="i-monitor" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2" /> <line x1="8" x2="16" y1="21" y2="21" /> <line x1="12" x2="12" y1="17" y2="21" /></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6" /></symbol>
+    <symbol id="i-triangle-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></symbol>
+    <symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3" /> <path d="M3 5V19A9 3 0 0 0 21 19V5" /> <path d="M3 12A9 3 0 0 0 21 12" /></symbol>
+    <symbol id="i-shield-check" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /> <path d="m9 12 2 2 4-4" /></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /></symbol>
+    <symbol id="i-rotate-ccw" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /> <path d="M3 3v5h5" /></symbol>
+    <symbol id="i-external-link" viewBox="0 0 24 24"><path d="M15 3h6v6" /> <path d="M10 14 21 3" /> <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /> <rect x="2" y="4" width="20" height="16" rx="2" /></symbol>
+    <symbol id="i-inbox" viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12" /> <path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" /></symbol>
+    <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1" /> <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" /></symbol>
+    <symbol id="i-activity" viewBox="0 0 24 24"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2" /></symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528" /></symbol>
+    <symbol id="i-clipboard-list" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="M12 11h4" /> <path d="M12 16h4" /> <path d="M8 11h.01" /> <path d="M8 16h.01" /></symbol>
+    <symbol id="i-check-check" viewBox="0 0 24 24"><path d="M18 6 7 17l-5-5" /> <path d="m22 10-7.5 7.5L13 16" /></symbol>
+    <symbol id="i-save" viewBox="0 0 24 24"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" /> <path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7" /> <path d="M7 3v4a1 1 0 0 0 1 1h7" /></symbol>
+    <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /> <path d="M20 2v4" /> <path d="M22 4h-4" /> <circle cx="4" cy="20" r="2" /></symbol>
+    <symbol id="i-refresh-cw" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" /> <path d="M21 3v5h-5" /> <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" /> <path d="M8 16H3v5" /></symbol>
+  </svg>
+
+  <div class="ambient" aria-hidden="true"></div>
+
+  <div class="app">
+    <!-- ===== Sidebar ===== -->
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+      <div class="brand">
+        <div class="brand-logo"><svg class="icon icon-lg"><use href="#i-briefcase"></use></svg></div>
+        <div>
+          <div class="brand-name">ExecuFlow</div>
+          <div class="brand-sub">Command Center</div>
+        </div>
+        <button class="btn btn-icon sm brand-close" id="sidebar-close" type="button" aria-label="Close navigation"><svg class="icon"><use href="#i-x"></use></svg></button>
+      </div>
+
+      <nav class="nav">
+        <div class="nav-label">Views</div>
+        <button class="nav-item" type="button" data-view="dashboard"><svg class="icon"><use href="#i-layout-dashboard"></use></svg> Dashboard <kbd>Ctrl+1</kbd></button>
+        <button class="nav-item" type="button" data-view="portfolio"><svg class="icon"><use href="#i-chart-pie"></use></svg> Strategic Portfolio <kbd>Ctrl+2</kbd></button>
+        <button class="nav-item" type="button" data-view="delegation"><svg class="icon"><use href="#i-users"></use></svg> Team Delegation <kbd>Ctrl+3</kbd></button>
+        <button class="nav-item" type="button" data-view="workload"><svg class="icon"><use href="#i-chart-column"></use></svg> Workload Allocation <kbd>Ctrl+4</kbd></button>
+        <button class="nav-item" type="button" data-view="engagements"><svg class="icon"><use href="#i-globe"></use></svg> Global Engagements <kbd>Ctrl+5</kbd></button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="profile" id="profile-btn" type="button" title="Edit your profile">
+          <div class="avatar" id="profile-avatar">CE</div>
+          <div>
+            <div class="profile-name" id="profile-name">Chief Executive</div>
+            <div class="profile-title" id="profile-title">Executive Office</div>
+          </div>
+        </button>
+        <div class="saved-state" id="saved-state"><svg class="icon"><use href="#i-check-check"></use></svg> <span>All changes saved on this device</span></div>
+      </div>
+    </aside>
+    <div class="scrim" id="scrim"></div>
+
+    <!-- ===== Content ===== -->
+    <div class="content">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="btn btn-icon menu-btn" id="menu-btn" type="button" aria-label="Open navigation"><svg class="icon"><use href="#i-menu"></use></svg></button>
+          <div style="min-width:0">
+            <h1 class="page-title" id="page-title">Executive Overview</h1>
+            <p class="page-date" id="page-date"></p>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <button class="btn btn-icon" id="theme-btn" type="button" aria-label="Switch theme" title="Switch theme"><svg class="icon" id="theme-icon"><use href="#i-sun"></use></svg></button>
+          <button class="btn btn-icon" id="alerts-btn" type="button" aria-label="Alerts" aria-haspopup="true" aria-expanded="false" title="Alerts">
+            <svg class="icon"><use href="#i-bell"></use></svg>
+            <span class="badge" id="alerts-badge" hidden>0</span>
+          </button>
+          <button class="btn btn-icon" id="settings-btn" type="button" aria-label="Settings" title="Settings"><svg class="icon"><use href="#i-settings"></use></svg></button>
+
+          <div class="popover" id="alerts-popover" hidden role="dialog" aria-label="Alerts">
+            <div class="popover-head">Needs attention <span id="alerts-count"></span></div>
+            <div class="popover-list" id="alerts-list"></div>
+          </div>
+        </div>
+      </header>
+
+      <main id="main">
+        <!-- Dashboard -->
+        <section class="view" id="view-dashboard" aria-labelledby="page-title">
+          <div class="kpi-grid">
+            <div class="card kpi" style="--kpi-glow: var(--accent)">
+              <div class="kpi-label">Active Projects</div>
+              <div class="kpi-value" id="kpi-projects">0</div>
+              <div class="kpi-sub" id="kpi-projects-sub"></div>
+            </div>
+            <div class="card kpi" style="--kpi-glow: var(--gold)">
+              <div class="kpi-label">Total Portfolio Budget</div>
+              <div class="kpi-value" id="kpi-budget">$0M</div>
+              <div class="kpi-sub" id="kpi-budget-sub"></div>
+            </div>
+            <div class="card kpi" style="--kpi-glow: #8b5cf6">
+              <div class="kpi-label">Open Delegations</div>
+              <div class="kpi-value" id="kpi-tasks">0</div>
+              <div class="kpi-sub" id="kpi-tasks-sub"></div>
+            </div>
+            <div class="card kpi" style="--kpi-glow: var(--gold)">
+              <div class="kpi-label">Next Engagement</div>
+              <div class="kpi-value text" id="kpi-next">—</div>
+              <div class="kpi-sub gold" id="kpi-next-sub"></div>
+            </div>
+          </div>
+
+          <div class="dash-split">
+            <div class="card">
+              <div class="card-head">
+                <div><h3>Open Delegated Tasks</h3><div class="sub">Soonest deadlines first</div></div>
+                <button class="btn-link" type="button" data-nav="delegation">View matrix <svg class="icon icon-sm"><use href="#i-arrow-right"></use></svg></button>
+              </div>
+              <div class="list" id="dash-tasks"></div>
+            </div>
+            <div class="card chart-card">
+              <div class="card-head">
+                <div><h3>Upcoming Load</h3><div class="sub">Items due per week, next 4 weeks</div></div>
+              </div>
+              <div class="chart-box"><canvas id="chart-upcoming" role="img" aria-label="Items due per week for the next four weeks"></canvas><div class="chart-empty" id="empty-upcoming" hidden>Nothing is due in the next 4 weeks.</div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Portfolio -->
+        <section class="view" id="view-portfolio">
+          <div class="view-toolbar">
+            <p id="portfolio-summary">Monitor multi-institutional grants and high-stakes projects.</p>
+            <button class="btn btn-primary" type="button" data-add="project"><svg class="icon"><use href="#i-plus"></use></svg> New Project</button>
+          </div>
+          <div class="grid-cards" id="portfolio-grid"></div>
+          <div id="portfolio-empty" hidden></div>
+        </section>
+
+        <!-- Delegation -->
+        <section class="view" id="view-delegation">
+          <div class="view-toolbar">
+            <p id="delegation-summary">Assign and track work packages across assistants and departments.</p>
+            <button class="btn btn-primary" type="button" data-add="task"><svg class="icon"><use href="#i-user-plus"></use></svg> Delegate Task</button>
+          </div>
+          <div class="card" id="delegation-card">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Task / Work Package</th>
+                    <th>Assignee</th>
+                    <th>Priority</th>
+                    <th>Deadline</th>
+                    <th>Status</th>
+                    <th style="text-align:right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="delegation-list"></tbody>
+              </table>
+            </div>
+            <div id="delegation-empty" hidden></div>
+          </div>
+        </section>
+
+        <!-- Workload -->
+        <section class="view" id="view-workload">
+          <div class="view-toolbar">
+            <p id="workload-summary">Bandwidth and resource allocation, computed live from your portfolio, delegations and engagements.</p>
+          </div>
+          <div class="chart-grid">
+            <div class="card chart-card">
+              <div class="card-head"><div><h3>Load by Assignee</h3><div class="sub">Open tasks weighted by priority (Normal 1 · High 2 · Critical 3)</div></div></div>
+              <div class="chart-box"><canvas id="chart-assignee" role="img" aria-label="Open workload points per assignee"></canvas><div class="chart-empty" id="empty-assignee" hidden>Delegate a task to see the load per assignee.</div></div>
+            </div>
+            <div class="card chart-card">
+              <div class="card-head"><div><h3>Budget by Project</h3><div class="sub">Portfolio allocation in $M</div></div></div>
+              <div class="chart-box"><canvas id="chart-budget" role="img" aria-label="Budget per project in millions"></canvas><div class="chart-empty" id="empty-budget" hidden>Add a project to see the budget allocation.</div></div>
+            </div>
+            <div class="card chart-card">
+              <div class="card-head"><div><h3>Deadline Pipeline</h3><div class="sub">Tasks and engagements due per week, next 8 weeks</div></div></div>
+              <div class="chart-box"><canvas id="chart-pipeline" role="img" aria-label="Tasks and engagements due per week for the next eight weeks"></canvas><div class="chart-empty" id="empty-pipeline" hidden>Nothing is due in the next 8 weeks.</div></div>
+            </div>
+            <div class="card chart-card">
+              <div class="card-head"><div><h3>Delegation Status</h3><div class="sub">Work packages by status</div></div></div>
+              <div class="chart-box"><canvas id="chart-status" role="img" aria-label="Number of tasks per status"></canvas><div class="chart-empty" id="empty-status" hidden>Delegate a task to see the status mix.</div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Engagements -->
+        <section class="view" id="view-engagements">
+          <div class="view-toolbar">
+            <p id="engagements-summary">Track upcoming international keynotes, board meetings and travel.</p>
+            <button class="btn btn-primary" type="button" data-add="engagement"><svg class="icon"><use href="#i-calendar-plus"></use></svg> Add Event</button>
+          </div>
+          <div class="timeline" id="engagements-timeline"></div>
+          <div id="engagements-empty" hidden></div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- ===== Record dialog (add / edit) ===== -->
+  <dialog id="record-dialog" aria-labelledby="record-title">
+    <form id="record-form" method="dialog" novalidate>
+      <div class="dialog-head">
+        <h3 id="record-title">Add</h3>
+        <button class="btn btn-icon sm" type="button" data-close aria-label="Close"><svg class="icon"><use href="#i-x"></use></svg></button>
+      </div>
+      <div class="dialog-body" id="record-fields"></div>
+      <div class="dialog-foot">
+        <button class="btn" type="button" data-close>Cancel</button>
+        <button class="btn btn-primary" type="submit" id="record-submit">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- ===== Confirm dialog ===== -->
+  <dialog id="confirm-dialog" class="dialog sm" aria-labelledby="confirm-title">
+    <div class="dialog-body">
+      <div class="confirm-icon" id="confirm-icon"><svg class="icon icon-lg"><use href="#i-triangle-alert"></use></svg></div>
+      <h3 id="confirm-title">Are you sure?</h3>
+      <p class="confirm-msg" id="confirm-msg"></p>
+    </div>
+    <div class="dialog-foot">
+      <button class="btn" type="button" id="confirm-cancel">Cancel</button>
+      <button class="btn btn-danger" type="button" id="confirm-ok">Delete</button>
+    </div>
+  </dialog>
+
+  <!-- ===== Settings dialog ===== -->
+  <dialog id="settings-dialog" aria-labelledby="settings-title">
+    <div class="dialog-head">
+      <h3 id="settings-title">Settings</h3>
+      <button class="btn btn-icon sm" type="button" data-close aria-label="Close"><svg class="icon"><use href="#i-x"></use></svg></button>
+    </div>
+    <div class="dialog-body">
+      <div class="settings-section">
+        <h4>Appearance</h4>
+        <div class="segmented" role="radiogroup" aria-label="Theme">
+          <label><input type="radio" name="theme" value="system"><span><svg class="icon icon-sm"><use href="#i-monitor"></use></svg> Windows</span></label>
+          <label><input type="radio" name="theme" value="light"><span><svg class="icon icon-sm"><use href="#i-sun"></use></svg> Light</span></label>
+          <label><input type="radio" name="theme" value="dark"><span><svg class="icon icon-sm"><use href="#i-moon"></use></svg> Dark</span></label>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h4>Profile</h4>
+        <div class="field-row">
+          <div class="field"><label for="set-name">Your name</label><input class="input" id="set-name" type="text" maxlength="60" placeholder="Chief Executive"></div>
+          <div class="field"><label for="set-title">Title</label><input class="input" id="set-title" type="text" maxlength="60" placeholder="Executive Office"></div>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h4>Data &amp; backup</h4>
+        <p class="hint">Everything is saved automatically on this device. Export a backup file regularly and keep it somewhere safe (OneDrive, a USB stick) — it restores your full command center on any PC.</p>
+        <div class="settings-actions">
+          <button class="btn" type="button" id="export-btn"><svg class="icon"><use href="#i-download"></use></svg> Export backup</button>
+          <button class="btn" type="button" id="import-btn"><svg class="icon"><use href="#i-upload"></use></svg> Import backup</button>
+          <button class="btn btn-ghost" type="button" id="sample-btn"><svg class="icon"><use href="#i-sparkles"></use></svg> Load sample data</button>
+          <button class="btn btn-ghost" type="button" id="clear-btn" style="color: var(--danger)"><svg class="icon"><use href="#i-trash-2"></use></svg> Clear all data</button>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h4>About</h4>
+        <p class="about"><strong>ExecuFlow</strong> <span id="about-version"></span> — Executive Command Center.<br>Works fully offline; your data never leaves this device.<br>Support: <a href="mailto:haymohsen@gmail.com">haymohsen@gmail.com</a></p>
+      </div>
+    </div>
+    <div class="dialog-foot">
+      <button class="btn btn-primary" type="button" data-close>Done</button>
+    </div>
+  </dialog>
+
+  <input type="file" id="import-file" accept="application/json,.json" hidden>
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+
+  <script src="js/vendor/chart.umd.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
