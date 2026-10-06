@@ -1,7 +1,7 @@
 /* ExecuFlow service worker — offline app shell.
    RELEASE RULE: bump VERSION on every release. A new VERSION creates a new cache,
    re-downloads every file in ASSETS and removes the old cache on activation. */
-const VERSION = '1.0.0';
+const VERSION = '1.0.1';
 const CACHE = `execuflow-${VERSION}`;
 const ASSETS = [
   './',
@@ -44,9 +44,20 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
 
-  // App shell: navigations always get the cached index.html (instant + offline).
+  // Navigations: a cached page (index.html, privacy.html) is served directly;
+  // the app's own address gets the cached shell (instant + offline); anything
+  // else goes to the network and falls back to the shell only when offline.
   if (req.mode === 'navigate') {
-    event.respondWith(caches.match('./index.html').then((hit) => hit || fetch(req)));
+    event.respondWith(
+      caches.match(req, { ignoreSearch: true }).then((hit) => {
+        if (hit) return hit;
+        const path = url.pathname;
+        if (path.endsWith('/') || path.endsWith('/index.html')) {
+          return caches.match('./index.html').then((shell) => shell || fetch(req));
+        }
+        return fetch(req).catch(() => caches.match('./index.html'));
+      })
+    );
     return;
   }
 
