@@ -1,0 +1,44 @@
+ExecuFlow - how to put it online (GitHub Pages) and package it for the Store
+=========================================================================
+
+All files in this folder belong at the ROOT of the repository (no sub-folders).
+
+A) The repository does not exist yet
+------------------------------------
+1. Open https://github.com/new
+   Repository name: ExecuFlow      Visibility: PUBLIC      -> Create repository
+2. On the new repository page click "uploading an existing file".
+3. Open this folder in File Explorer, press Ctrl+A to select ALL files
+   (including .nojekyll), and drag them into the browser upload area.
+   Wait until every file shows "uploaded", then click "Commit changes".
+4. Repository -> Settings -> Pages -> "Build and deployment":
+   Source = "Deploy from a branch", Branch = main, Folder = / (root) -> Save.
+5. Wait 2-3 minutes, then open:
+   https://haymohsen.github.io/ExecuFlow/
+   https://haymohsen.github.io/ExecuFlow/privacy.html   <- privacy policy URL for Partner Center
+
+B) The repository already exists but is PRIVATE
+-----------------------------------------------
+GitHub Pages does not publish private repositories on a free account.
+Repository -> Settings -> General -> scroll to "Danger Zone" -> "Change visibility" -> Public.
+Then do step 4 above (and step 3 first if the files are not uploaded yet).
+
+Partner Center / PWABuilder
+---------------------------
+Start URL for PWABuilder:   https://haymohsen.github.io/ExecuFlow/
+Privacy policy URL:         https://haymohsen.github.io/ExecuFlow/privacy.html
+Website:                    https://haymohsen.github.io/ExecuFlow/
+Support contact:            haymohsen@gmail.com
+Package display name must match the name reserved in Partner Center exactly.
+
+Updating the app later
+----------------------
+1. Edit the files you need.
+2. Open sw.js and raise VERSION (1.0.0 -> 1.0.1). Without this, installed copies keep the old cached files.
+3. Repository -> "Add file" -> "Upload files" -> drag the changed files (same names replace the old ones) -> Commit.
+   Installed copies show "A new version is ready - Restart now" on their next launch.
+   No new Store submission is needed unless the app name, icons or manifest change.
+
+Testing on your PC
+------------------
+Double-click index.html - the app runs from disk. (Offline caching only activates on the https site.)

@@ -14,29 +14,29 @@
   "categories": ["business", "productivity"],
   "prefer_related_applications": false,
   "icons": [
-    { "src": "icons/icon-48.png", "sizes": "48x48", "type": "image/png", "purpose": "any" },
-    { "src": "icons/icon-72.png", "sizes": "72x72", "type": "image/png", "purpose": "any" },
-    { "src": "icons/icon-96.png", "sizes": "96x96", "type": "image/png", "purpose": "any" },
-    { "src": "icons/icon-128.png", "sizes": "128x128", "type": "image/png", "purpose": "any" },
-    { "src": "icons/icon-144.png", "sizes": "144x144", "type": "image/png", "purpose": "any" },
-    { "src": "icons/icon-152.png", "sizes": "152x152", "type": "image/png", "purpose": "any" },
-    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "icons/icon-256.png", "sizes": "256x256", "type": "image/png", "purpose": "any" },
-    { "src": "icons/icon-384.png", "sizes": "384x384", "type": "image/png", "purpose": "any" },
-    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "icons/icon-1024.png", "sizes": "1024x1024", "type": "image/png", "purpose": "any" },
-    { "src": "icons/maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
-    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    { "src": "icon-48.png", "sizes": "48x48", "type": "image/png", "purpose": "any" },
+    { "src": "icon-72.png", "sizes": "72x72", "type": "image/png", "purpose": "any" },
+    { "src": "icon-96.png", "sizes": "96x96", "type": "image/png", "purpose": "any" },
+    { "src": "icon-128.png", "sizes": "128x128", "type": "image/png", "purpose": "any" },
+    { "src": "icon-144.png", "sizes": "144x144", "type": "image/png", "purpose": "any" },
+    { "src": "icon-152.png", "sizes": "152x152", "type": "image/png", "purpose": "any" },
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-256.png", "sizes": "256x256", "type": "image/png", "purpose": "any" },
+    { "src": "icon-384.png", "sizes": "384x384", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-1024.png", "sizes": "1024x1024", "type": "image/png", "purpose": "any" },
+    { "src": "maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ],
   "screenshots": [
-    { "src": "screenshots/dashboard-dark.png", "sizes": "1366x768", "type": "image/png", "form_factor": "wide", "label": "Executive overview with KPIs, open delegations and upcoming load" },
-    { "src": "screenshots/portfolio-light.png", "sizes": "1366x768", "type": "image/png", "form_factor": "wide", "label": "Strategic portfolio with budget, status and progress" },
-    { "src": "screenshots/workload-dark.png", "sizes": "1366x768", "type": "image/png", "form_factor": "wide", "label": "Workload allocation charts computed from your data" },
-    { "src": "screenshots/engagements-light.png", "sizes": "1366x768", "type": "image/png", "form_factor": "wide", "label": "Global engagements timeline" }
+    { "src": "screenshot-dashboard-dark.png", "sizes": "1366x768", "type": "image/png", "form_factor": "wide", "label": "Executive overview with KPIs, open delegations and upcoming load" },
+    { "src": "screenshot-portfolio-light.png", "sizes": "1366x768", "type": "image/png", "form_factor": "wide", "label": "Strategic portfolio with budget, status and progress" },
+    { "src": "screenshot-workload-dark.png", "sizes": "1366x768", "type": "image/png", "form_factor": "wide", "label": "Workload allocation charts computed from your data" },
+    { "src": "screenshot-engagements-light.png", "sizes": "1366x768", "type": "image/png", "form_factor": "wide", "label": "Global engagements timeline" }
   ],
   "shortcuts": [
-    { "name": "Team Delegation", "short_name": "Delegation", "description": "Open the delegation matrix", "url": "./?view=delegation", "icons": [{ "src": "icons/icon-96.png", "sizes": "96x96" }] },
-    { "name": "Strategic Portfolio", "short_name": "Portfolio", "description": "Open the portfolio", "url": "./?view=portfolio", "icons": [{ "src": "icons/icon-96.png", "sizes": "96x96" }] },
-    { "name": "Global Engagements", "short_name": "Engagements", "description": "Open the engagements timeline", "url": "./?view=engagements", "icons": [{ "src": "icons/icon-96.png", "sizes": "96x96" }] }
+    { "name": "Team Delegation", "short_name": "Delegation", "description": "Open the delegation matrix", "url": "./?view=delegation", "icons": [{ "src": "icon-96.png", "sizes": "96x96" }] },
+    { "name": "Strategic Portfolio", "short_name": "Portfolio", "description": "Open the portfolio", "url": "./?view=portfolio", "icons": [{ "src": "icon-96.png", "sizes": "96x96" }] },
+    { "name": "Global Engagements", "short_name": "Engagements", "description": "Open the engagements timeline", "url": "./?view=engagements", "icons": [{ "src": "icon-96.png", "sizes": "96x96" }] }
   ]
 }

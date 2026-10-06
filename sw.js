@@ -6,19 +6,19 @@ const CACHE = `execuflow-${VERSION}`;
 const ASSETS = [
   './',
   './index.html',
-  './css/app.css',
-  './js/app.js',
-  './js/vendor/chart.umd.js',
+  './app.css',
+  './app.js',
+  './chart.umd.js',
   './manifest.webmanifest',
   './favicon.ico',
   './privacy.html',
-  './icons/icon-32.png',
-  './icons/icon-48.png',
-  './icons/icon-96.png',
-  './icons/icon-180.png',
-  './icons/icon-192.png',
-  './icons/icon-512.png',
-  './icons/maskable-512.png'
+  './icon-32.png',
+  './icon-48.png',
+  './icon-96.png',
+  './icon-180.png',
+  './icon-192.png',
+  './icon-512.png',
+  './maskable-512.png'
 ];
 
 self.addEventListener('install', (event) => {
