@@ -1,7 +1,7 @@
 /* ExecuFlow service worker — offline app shell.
    RELEASE RULE: bump VERSION on every release. A new VERSION creates a new cache,
    re-downloads every file in ASSETS and removes the old cache on activation. */
-const VERSION = '1.0.1';
+const VERSION = '1.2.0';
 const CACHE = `execuflow-${VERSION}`;
 const ASSETS = [
   './',
